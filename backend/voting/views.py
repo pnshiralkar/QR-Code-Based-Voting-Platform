@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 
@@ -12,22 +13,22 @@ def adminlogin(request):
     if request.method == "POST":
         password = request.POST.get('password')
         if password == "picsoreel":
-            username = authenticate(username="Tanmay", password="picsoreel")
-            auth.login(request, username)
+            user = authenticate(username="Tanmay", password="picsoreel")
+            auth.login(request, user)
             return render(request, 'voting/signup.html')
         return render(request, 'voting/adminlogin.html')
     return render(request, 'voting/adminlogin.html')
 
 
 def signup(request):
-    if request.method == "POST" and request.user.is_superuser:
+    if request.method == "POST":
         username = request.POST.get('username')
         password = "picsoreel2k19"
         try:
-            user = User.objects.create_user(username=username, password=password)
+            User.objects.create_user(username=username, password=password)
         except:
             return render(request, 'voting/signup.html', {'error': 'Username taken'})
-        return render(request, 'voting/singup.html')
+        return render(request, 'voting/signup.html')
     return render(request, 'voting/signup.html')
 
 
@@ -43,10 +44,13 @@ def login(request):
             if user.is_active:
                 User.objects.filter(username=username).update(is_active=False)
                 auth.login(request, user)
-                return render(request, 'voting/home.html')
+                return JsonResponse({"success": True})
+                # return render(request, 'voting/home.html')
         else:
+            print(1)
             return render(request, 'voting/login.html')
     else:
+        print(2)
         return render(request, 'voting/login.html')
 
 
