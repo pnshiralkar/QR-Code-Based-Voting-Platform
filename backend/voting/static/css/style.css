@@ -29,9 +29,35 @@ body,
 .page-footer {
   background-color: #1C2331; }
 
-
-
-
 .modal-content {
     background-color: rgba(0,0,0,0.5);
 }
+
+.chip {
+  width: 80vw;
+  align-self: center;
+  display: inline-block;
+  height: 12vh;
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background-color: #e4e4e4;
+  margin-bottom: 2vw;
+  margin-right: 5px;
+
+}
+
+.chip1 {
+    margin-top: 9vh;
+}
+
+.chip6 {
+    margin-bottom: 7vh;
+}
+
+
+
+

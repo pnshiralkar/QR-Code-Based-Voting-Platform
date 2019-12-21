@@ -218,8 +218,6 @@ function startCam() {
                 inputStream: {
                     type: "LiveStream",
                     constraints: {
-                        width: { min: 640 },
-                        height: { min: 480 },
                         facingMode: "environment",
                         aspectRatio: { min: 1, max: 2 }
                     }
@@ -278,8 +276,8 @@ function startCam() {
                 $node.find("img").attr("src", canvas.toDataURL());
                 $node.find("h4.code").html(code);
                 $("#result_strip ul.thumbnails").prepend($node);
+                barcode(code);
             }
-            barcode(code);
         });
 
     });

@@ -7,8 +7,11 @@
 </head>
 <body>
     <h1>ADMIN LOGIN</h1><br>
+    {{ error1 }}
+    {{ error2 }}
     <form method="post">
-         <input type="password" placeholder="password" name="password" id="password"><br>
+        <input type="text" placeholder="Username" name="username" id="username" required><br>
+        <input type="password" placeholder="password" name="password" id="password" required><br>
         <button type="submit">Submit</button>
     </form>
 

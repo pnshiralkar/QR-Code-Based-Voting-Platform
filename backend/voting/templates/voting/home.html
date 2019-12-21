@@ -7,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>PICS-O-REEL</title>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/static/cssall.css">
     <!-- Bootstrap core CSS -->
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
 
@@ -18,7 +18,7 @@
     <!--My stylesheets-->
     <link href="static/css/style.css" rel="stylesheet">
 
-    <style>
+    <style type="text/css">
         @media (min-width: 800px) and (max-width: 850px) {
             .navbar:not(.top-nav-collapse) {
                 background: #1C2331 !important;
@@ -29,7 +29,8 @@
     <style>
         .drawingBuffer {
             position: absolute;
-            left: 7px;
+            left: 4%;
+            width: 92%;
         }
         
         video {
@@ -39,23 +40,39 @@
     <script src="static/js/vendor/jquery-1.9.0.min.js"></script>
     <script src="static/js/quagga.min.js"></script>
     <script src="static/js/live_w_locator.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
         function barcode(code) {
-            console.log("code: " + code);
-            if(code.length == 11)
-            {
-            $.ajax({
-                url: "/login",
-                method: "post",
-                data: {
-                    'username': code
-                },
-                success: function(res) {
-                    console.log(res);
-                    if(res.success == true)
-                        window.location = "/vote";
-                }
-            });
+            var bool = false;
+
+            if (code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) {
+                console.log(code);
+                // start loading a(if possible pause video)
+                $(".loading").show();
+                $.ajax({
+                    url: "/login",
+                    method: "post",
+                    data: {
+                        'username': code
+                    },
+                    timeout: 3000,
+                    success: function(res) {
+                        console.log(res);
+
+                        if (res.success)
+                            window.location = "/vote";
+                        else {
+                            alert(res.status);
+                            // stop loading (play vdo again)
+                            $(".loading").hide();
+                        }
+                    },
+                    fail: function () {
+                        $(".loading").hide();
+                    }
+                })
+
             }
         }
 
@@ -63,6 +80,41 @@
             $("a[data-target*='#barcodeModal']").click(() => {
                 startCam();
             });
+
+            $(".loading").hide();
+
+            document.getElementById("Manual").onclick = function() {
+                var bool = false;
+                var code = document.getElementById("idManual").value;
+
+                if (code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) {
+                    $(".loading").show();
+                    $.ajax({
+                        url: "/login",
+                        method: "post",
+                        data: {
+                            'username': code
+                        },
+                        timeout: 3000,
+                        success: function(res) {
+                            console.log(res);
+                            $(".loading").hide();
+                            if (res.success)
+                                window.location = "/vote";
+                            else {
+                                alert(alert.status);
+                                // stop loading (play vdo again)
+                            }
+                        },
+                        fail: function () {
+                            $(".loading").hide();
+                        }
+
+                    })
+                } else
+                    alert("Invalid User");
+            }
+
         });
     </script>
 </head>
@@ -181,16 +233,38 @@
                 </div>
                 <div class="modal-body">
                     <div data-v-8d1d8f02="" data-v-d5007954="" id="interactive" class="viewport scanner">
+
+                        <div class="container text-white align-items-center">
+                            <div class="row">
+                                <div class="col-auto loading" style="background-color: rgba(0,0,0,0.5)">
+                                    <div class="spinner-border text-light loading" role="status">
+                                        <span class="sr-only loading">Loading...</span>
+                                    </div> Logging in...
+                                </div>
+                            </div>
+                        </div>
                         <video data-v-8d1d8f02=""></video>
                         <canvas data-v-8d1d8f02="" class="drawingBuffer"></canvas>
                     </div>
                 </div>
                 <div class="modal-footer">
-
+                    <h5 class="text-white"><a href="#collapse2" data-toggle="collapse">Manual login</a></h5>
+                    <div id="collapse2" class="collapse">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group text-white">
+                                    <label for="username">ID</label>
+                                    <input type="text" placeholder="Username" class="form-control" id="idManual">
+                                </div>
+                            </form>
+                            <button class="btn btn-primary" id="Manual">Login</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 
 
 
@@ -221,6 +295,7 @@
             </div>
         </div>
     </div>
+
     <footer class="page-footer text-center font-small mt-4 wow fadeIn">
 
         <hr class="my-4">
@@ -252,8 +327,6 @@
     </footer>
 
     <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="static/js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
