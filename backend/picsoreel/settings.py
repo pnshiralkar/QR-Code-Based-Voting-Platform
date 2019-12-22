@@ -68,7 +68,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
-# sudo docker run -d -e POSTGRES_USER=root -e POSTGRES_PASSWORD=django_1234 -e POSTGRES_DB=picsoreel -p 5432:5432 --name postgres postgres
+# sudo docker run -d -e POSTGRES_USER=root -e POSTGRES_PASSWORD=django_1234 -e POSTGRES_DB=picsoreel -e PGDATA=/var/lib/postgresql/data/pgdata -p 5432:5432 -v /home/picoreel_db:/var/lib/postgresql/data postgres
 }
 
 

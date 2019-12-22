@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +7,13 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!--Import materialize.css-->
-    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="../static/css/materialize.min.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--My stylesheets-->
-    <link rel="stylesheet" href="{% static 'css/style2.css' %}" />
+    <link rel="stylesheet" href="../static/css/thanks.css" />
 
     <title>Pics-o-reel</title>
 </head>
@@ -22,7 +21,23 @@
 <body>
 
     <div class="container center-align">
-        <h1 class="header center">THANK YOU</h1>
+        <h1 class="header center white-text">THANK YOU</h1>
+        <h5 class="white-text">Your choices have been recorded</h5>
+        <br>
+        <div class="card">
+            <div class="card-image">
+                <img src="../static/img/Picture1.png">
+                <span class="card-title">Upcoming event: Manthan</span>
+            </div>
+            <div class="card-content">
+                <p>
+                    Manthan is a churning of revolutionary ideas and a battle of words, where not only do we test a person's flair for words, but also their skill of captivating the audience with their words and ideas.
+                </p>
+            </div>
+            <div class="card-action">
+                <a href="#">PARTICIPATE</a>
+            </div>
+        </div>
     </div>
 
 
@@ -34,7 +49,7 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">Team Pictoreal values your feedback</h5>
+                    <h5 class="white-text center">Team Pictoreal values your feedback</h5>
                     <br>
                 </div>
                 <div class="container center-align">
@@ -68,7 +83,5 @@
 
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="{% static 'js/materialize.js' %}"></script>
-</body>
-
-</html>
+    <script src="js/materialize.js"></script>
+</body></html>

@@ -1,13 +1,170 @@
+<!DOCTYPE html>
 <html>
 <head>
 
     <title>Signup</title>
-</head>
-    <h2>Sign Up</h2><br>
-    <h5>{{ error }}</h5><br>
-    <form method="post" action="{% url 'signup' %}">
-        <input type="text" placeholder="Username" name="username" id="username">
-        <button type="submit">Sign Up</button>
-    </form>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/static/cssall.css">
 
-</html>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="../static/css/mdb.min.css" rel="stylesheet">
+
+    <style>
+        .drawingBuffer {
+            position: absolute;
+            left: 4%;
+            width: 92%;
+        }
+
+        video {
+            width: 100%;
+        }
+    </style>
+    <script src="../static/js/vendor/jquery-1.9.0.min.js"></script>
+    <script src="../static/js/quagga.min.js"></script>
+    <script src="../static/js/live_w_locator.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function barcode(code) {
+            var bool = false;
+
+            if (code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) {
+                console.log(code);
+                // start loading a(if possible pause video)
+                $(".loading").show();
+                $.ajax({
+                    url: "/signup",
+                    method: "post",
+                    data: {
+                        'username': code
+                    },
+                    timeout: 3000,
+                    success: function(res) {
+                        console.log(res);
+
+                        if (res.success)
+                            window.location = "/vote";
+                        else {
+                            alert(res.status);
+                            // stop loading (play vdo again)
+                            $(".loading").hide();
+                        }
+                    },
+                    fail: function() {
+                        $(".loading").hide();
+                    }
+                })
+
+            }
+        }
+
+        $(document).ready(function() {
+            $("a[data-target*='#barcodeModal']").click(() => {
+                startCam();
+            });
+
+            $(".loading").hide();
+
+            document.getElementById("Manual").onclick = function() {
+                var bool = false;
+                var code = document.getElementById("idManual").value;
+
+                if (code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) {
+                    $(".loading").show();
+                    $.ajax({
+                        url: "/signup",
+                        method: "post",
+                        data: {
+                            'username': code
+                        },
+                        timeout: 3000,
+                        success: function(res) {
+                            console.log(res);
+                            $(".loading").hide();
+                            if (res.success)
+                                window.location = "/vote";
+                            else {
+                                alert(alert.status);
+                                // stop loading (play vdo again)
+                            }
+                        },
+                        fail: function() {
+                            $(".loading").hide();
+                        }
+
+                    })
+                } else
+                    alert("Invalid User");
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+    <h2>Sign Up</h2><br>
+
+    <a target="_blank" class="btn btn-primary" data-toggle="modal" data-target="#barcodeModal">SIGN UP
+    </a>
+
+    <!--Barcode Modal-->
+    <div class="modal" id="barcodeModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Login</h5>
+                    <button class="close" onclick="Quagga.stop()" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div data-v-8d1d8f02="" data-v-d5007954="" id="interactive" class="viewport scanner">
+
+                        <div class="container text-white align-items-center">
+                            <div class="row">
+                                <div class="col-auto loading" style="background-color: rgba(0,0,0,0.5)">
+                                    <div class="spinner-border text-light loading" role="status">
+                                        <span class="sr-only loading">Loading...</span>
+                                    </div> Signing up...
+                                </div>
+                                <div class="col-auto" style="background-color: rgba(0,255,0,0.5)">
+                                    <i class="fas fa-check"></i>Signed Up successfully
+                                </div>
+                            </div>
+                        </div>
+                        <video data-v-8d1d8f02=""></video>
+                        <canvas data-v-8d1d8f02="" class="drawingBuffer"></canvas>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <h5 class="text-white"><a href="#collapse2" data-toggle="collapse">Manual Sign Up</a></h5>
+                    <div id="collapse2" class="collapse">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group text-white">
+                                    <label for="username">ID</label>
+                                    <input type="text" placeholder="Username" class="form-control" id="idManual">
+                                </div>
+                            </form>
+                            <button class="btn btn-primary" id="Manual">Login</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SCRIPTS -->
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="../static/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="../static/js/mdb.min.js"></script>
+    <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+</body></html>

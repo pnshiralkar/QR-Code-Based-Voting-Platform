@@ -1,154 +1,121 @@
-{% load static %}
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
+
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
     <!--Import materialize.css-->
-    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+    <link rel="stylesheet" href="../static/css/materialize.min.css">
 
     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <!--My stylesheets-->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/materialize.min.js"></script>
+
+
+    <script src="../static/js/voting.js"></script>
+
+
+
 </head>
 
 <body>
     <div class="container center-align">
-<form class="col s10">
-    <div class="chip chip1">
-       <div class="row">
-            
+        <h3 class="white-text">
+            PICS-O-REEL
+        </h3>
+        <h5 class="white-text">Voting Platform</h5>
         <div class="row">
-          <div class="input-field col s10 ">
-            <i class="material-icons prefix  ">check</i>
-            <input id="icon_prefix" type="text" >
-          <label for="icon_prefix">image1</label>
+            <div class="col s6">
+                <h5 class="white-text left">
+                    Photos: <div style="display: inline-block" id="numP">0</div>/3
+                </h5>
+            </div>
+            <div class="col s6">
 
-          </div>
-          <div class="col s2">
-            <i class="close material-icons center-align">close</i>
-          </div>
-          
+                <h5 class="white-text right">
+                    Drawings: <div style="display: inline-block" id="numS">0</div>/3
+                </h5>
+            </div>
         </div>
-      
-             
-        </div>  
+        <div class="col s10" id="chips">
+
+            <br>
+            <!--button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #28a745">Submit
+                <i class="material-icons right">send</i>
+            </button-->
+            <div class="fixed-action-btn" style="right: auto; left:23px; bottom: 50px">
+                <a class="btn-floating green btn-large modal-trigger modal-close" href="#submit-modal"><i class="large material-icons">send</i></a>
+            </div>
+            <div id="submit-modal" class="modal">
+            <div class="modal-content" style="background-color: white">
+                <h4>Confirm submission?</h4>
+                <p>Choices cannot be changed later.</p>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-close waves-effect waves-red btn-flat">Return</a>
+                <a id="btnSubmit" class="modal-close waves-effect waves-green btn-flat">Submit</a>
+            </div>
+        </div>
+        </div>
+
+        
 
     </div>
-    <br>
-
-    <div class="chip">
-       <div class="row">
-            
-        <div class="row">
-          <div class="input-field col s10 ">
-            <i class="material-icons prefix">check</i>
-            <input id="icon_prefix id2" type="text" class="validate">
-            <label for="icon_prefix id2">image2</label>
-                      </div>
-                      <div class="col s2">
-            <i class="close material-icons center-align">close</i>
-          </div>
-                    
-        </div>
-      
-              
-        </div>  
+    <div class="fixed-action-btn" style="bottom: 50px">
+        <a href="#camera-modal" id="qrstart" class="btn-floating red btn-large modal-trigger"><i class="large material-icons">camera</i></a>
     </div>
-    <br>
-
-    <div class="chip">
-       <div class="row">
-            
-        <div class="row">
-          <div class="input-field col s10">
-            <i class="material-icons prefix">check</i>
-           <input id="icon_prefix id3" type="text" class="validate">
-          <label for="icon_prefix id3">image3</label>
-          </div>
-          <div class="col s2">
-            <i class="close material-icons center-align">close</i>
-          </div>
-        </div>
-     
-              
-        </div>  
+    <div id="camera-modal" class="modal">
+           <div class="modal-header center">
+               <h5>Scan QR Code to Vote!</h5>
+           </div>
+            <div class="modal-content center" style="background-color: white">
+                <video id="preview" style="width: 100%"></video>
+            </div>
+            <div class="modal-footer">
+                <h5>Footer-text</h5>
+            </div>
     </div>
-    <br>
-
-    <div class="chip">
-       <div class="row">
-            
-        <div class="row">
-          <div class="input-field col s10">
-            <i class="material-icons prefix">check</i>
-            <input id="icon_prefix id4" type="text" class="validate">
-          <label for="icon_prefix id4">image4</label>
-          </div>
-           <div class="col s2">
-            <i class="close material-icons center-align">close</i>
-          </div>
-        </div>
-     
-             
-        </div>  
-    </div>
-    <br>
-
-    <div class="chip">
-       <div class="row">
-            
-        <div class="row">
-          <div class="input-field col s10">
-            <i class="material-icons prefix">check</i>
-            <input id="icon_prefix id5" type="text" class="validate">
-          <label for="icon_prefix id5">image5</label>
-          </div>
-          <div class="col s2">
-            <i class="close material-icons center-align">close</i>
-          </div>
-        </div>
-      
-              
-        </div>  
-    </div>
-    <br>
-
-    <div class="chip chip6">
-       <div class="row">
-            
-        <div class="row">
-          <div class="input-field col s10">
-            <i class="material-icons prefix">check</i>
-            <input id="icon_prefix id6" type="text" class="validate">
-          <label for="icon_prefix id6">image6</label>
-          </div>
-         <div class="col s2">
-            <i class="close material-icons center-align">close</i>
-          </div>
-        </div>
-      
-              
-        </div>  
-    </div>
-    <br>
-
-    </form>
-<button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #28a745">Submit
-    <i class="material-icons right">send</i>
-  </button>
     
-    </div>
-    <div class="fixed-action-btn" >
-        <a href="#" class="btn-floating red btn-large"><i class="large material-icons">camera</i></a>
+    <main></main>
+    <footer class="page-footer">
+        <div class="footer-copyright">
+            <div class="container">
+                © <a href="https://pictoreal.in/" target="_blank"> PICTOREAL </a>
+                2019
+                <a href="https://www.facebook.com/pictoreal/" target="_blank">
+                    <i class="fab fa-facebook-f mr-3 right"></i>
+                </a>
 
-    </div>
+                <a href="https://www.instagram.com/pictoreal/" target="_blank">
+                    <i class="fab fa-instagram mr-3 right"></i>
+                </a>
 
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    
+                <a href="mailto:pictoreal@pict.edu" target="_blank">
+                    <i class="fas fa-envelope mr-3 right"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        $(document).ready(function() {
+            $('.modal').modal();
+        })
+    </script>
+
+
 
 </body></html>

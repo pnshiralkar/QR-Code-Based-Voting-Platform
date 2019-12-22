@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 
+from .models import Vote
+
+
 
 def home(request):
     return render(request, 'voting/home.html')
@@ -11,7 +14,7 @@ def home(request):
 
 def adminlogin(request):
     if request.method == "POST":
-        username = request.POST.get('username').upper()
+        username = request.POST.get('username')
         password = request.POST.get('password')
         try:
             User.objects.get(username=username)
@@ -35,10 +38,9 @@ def signup(request):
             try:
                 User.objects.create_user(username=username, password=password)
             except:
-                return render(request, 'voting/signup.html', {'error': 'Username taken'})
-            return render(request, 'voting/signup.html')
-        return render(request, 'voting/adminlogin.html')
-    print(request.user.username)
+                return JsonResponse({"success": False, "status": "Username Taken"})
+            return JsonResponse({"success": True})
+        raise Http404()
     raise Http404()
 
 
@@ -48,11 +50,11 @@ def login(request):
         try:
             User.objects.get(username=username)
         except:
-            return JsonResponse({"success": False, "status": "Invalid ID ; Make sure you are registered by Pictoreal volunteer."})
+            return JsonResponse(
+                {"success": False, "status": "Invalid ID ; Make sure you are registered by Pictoreal volunteer."})
         user = authenticate(username=username, password="picsoreel2k19")
         if user:
-            if user.is_active:
-                User.objects.filter(username=username).update(is_active=False)
+            if user.is_active or True:
                 auth.login(request, user)
                 return JsonResponse({"success": True})
             return JsonResponse({"success": False, "status": "Duplicate user!"})
@@ -62,6 +64,51 @@ def login(request):
         raise Http404()
 
 
-def logout(request):
+def voting(request):
+    return render(request, 'voting/voting.html')
+
+
+def submit(request):
+    s1, s2, s3, p1, p2, p3 = '', '', '', '', '', ''
+    try:
+        if request.COOKIES['check'] != 'pictoreal':
+            raise Http404()
+    except:
+        raise Http404()
+    try:
+        s1 = request.COOKIES['s0']
+    except:
+        pass
+    try:
+        s2 = request.COOKIES['s1']
+    except:
+        pass
+    try:
+        s3 = request.COOKIES['s2']
+    except:
+        pass
+
+    try:
+        p1 = request.COOKIES['p0']
+    except:
+        pass
+    try:
+        p2 = request.COOKIES['p1']
+    except:
+        pass
+    try:
+        p3 = request.COOKIES['p2']
+    except:
+        pass
+    vote = Vote(IDNumber=request.user.username, drawing1=s1, drawing2=s2, drawing3=s3, photo1=p1, photo2=p2, photo3=p3)
+    vote.save()
     auth.logout(request)
-    return redirect('home')
+    response = redirect('thanks')
+    response.delete_cookie('user_location')
+    User.objects.filter(username=request.user.username).update(is_active=False)
+    return response
+
+
+def thanks(req):
+    return render(req, 'voting/thanks.html')
+
