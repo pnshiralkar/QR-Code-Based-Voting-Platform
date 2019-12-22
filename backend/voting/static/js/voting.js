@@ -46,7 +46,8 @@ var scanner;
 
 function startCam() {
     scanner = new Instascan.Scanner({
-        video: document.getElementById('preview')
+        video: document.getElementById('preview'),
+        mirror: false
     })
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 1) {

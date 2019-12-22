@@ -29,9 +29,9 @@
     <!-- JQuery -->
     <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
+
         function barcode(code) {
             var bool = false;
-
             if (code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) {
                 console.log(code);
                 // start loading a(if possible pause video)
@@ -46,15 +46,18 @@
                     success: function(res) {
                         console.log(res);
 
-                        if (res.success)
-                            window.location = "/vote";
-                        else {
-                            alert(res.status);
-                            // stop loading (play vdo again)
+                        if (res.success) {
                             $(".loading").hide();
+                            $('#successfullySignedIn').show();
+                            setTimeout(function(){ $('#successfullySignedIn').hide(); }, 3000);
+                        }else{
+                            alert(res.status);
+                            $(".loading").hide();
+                            $("#signingUp").hide();
+
                         }
                     },
-                    fail: function() {
+                    error: function() {
                         $(".loading").hide();
                     }
                 })
@@ -68,6 +71,8 @@
             });
 
             $(".loading").hide();
+            $("#successfullySignedIn").hide();
+            $("#signingUp").hide();
 
             document.getElementById("Manual").onclick = function() {
                 var bool = false;
@@ -85,12 +90,16 @@
                         success: function(res) {
                             console.log(res);
                             $(".loading").hide();
-                            if (res.success)
-                                window.location = "/vote";
-                            else {
-                                alert(alert.status);
-                                // stop loading (play vdo again)
-                            }
+                            if (res.success) {
+                            $(".loading").hide();
+                            $('#successfullySignedIn').show();
+                            setTimeout(function(){ $('#successfullySignedIn').hide(); }, 3000);
+                        }else{
+                            alert(res.status);
+                            $(".loading").hide();
+                            $("#signingUp").hide();
+
+                        }
                         },
                         fail: function() {
                             $(".loading").hide();
@@ -126,11 +135,11 @@
                             <div class="row">
                                 <div class="col-auto loading" style="background-color: rgba(0,0,0,0.5)">
                                     <div class="spinner-border text-light loading" role="status">
-                                        <span class="sr-only loading">Loading...</span>
+                                        <span class="sr-only loading" id = "signingUp">Loading...</span>
                                     </div> Signing up...
                                 </div>
-                                <div class="col-auto" style="background-color: rgba(0,255,0,0.5)">
-                                    <i class="fas fa-check"></i>Signed Up successfully
+                                <div class="col-auto" style="background-color: rgba(0,155,40,0.9) ; font-weight: bolder;" id = "successfullySignedIn">
+                                    <i class="fas fa-check" ></i>Signed Up successfully
                                 </div>
                             </div>
                         </div>
