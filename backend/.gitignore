@@ -1,0 +1,5 @@
+fullchain.pem
+privkey.pem
+__pycache__/
+voting/__pycache__/
+backend/__pycache__/

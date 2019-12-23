@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -30,7 +31,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -68,9 +69,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
-# sudo docker run -d -e POSTGRES_USER=root -e POSTGRES_PASSWORD=django_1234 -e POSTGRES_DB=picsoreel -e PGDATA=/var/lib/postgresql/data/pgdata -p 5432:5432 -v /home/picoreel_db:/var/lib/postgresql/data postgres
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -108,20 +107,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# changes
-
-"""
-Superuser:
-    username = admin
-    password = admin
-    
-Staff:
-    username = user1,user2,...
-    password = admin
-
-Voter:
-    username = barcode
-    password = picsoreel2k19
-
-"""
