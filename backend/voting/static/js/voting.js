@@ -117,9 +117,8 @@ function startCam() {
                 "\n" +
                 "            </div>")
             scanner.stop();
-            try {
-                $(".modal").modal().close();
-            }catch (e) {}
+            
+            $(".close").click();
         }
     });
 
