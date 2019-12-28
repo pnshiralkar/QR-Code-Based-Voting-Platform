@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="../static/css/materialize.min.css">
 
     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--My stylesheets-->
     <link href="../static/css/style.css" rel="stylesheet">
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
@@ -39,13 +39,15 @@
         <div class="row">
             <div class="col s6">
                 <h5 class="white-text left">
-                    Photos: <div style="display: inline-block" id="numP">0</div>/3
+                    Photos:
+                    <div style="display: inline-block" id="numP">0</div>/3
                 </h5>
             </div>
             <div class="col s6">
 
                 <h5 class="white-text right">
-                    Drawings: <div style="display: inline-block" id="numS">0</div>/3
+                    Drawings:
+                    <div style="display: inline-block" id="numS">0</div>/3
                 </h5>
             </div>
         </div>
@@ -59,41 +61,42 @@
                 <a class="btn-floating green btn-large modal-trigger modal-close" href="#submit-modal"><i class="large material-icons">send</i></a>
             </div>
             <div id="submit-modal" class="modal">
-            <div class="modal-content" style="background-color: white">
-                <h4>Confirm submission?</h4>
-                <p>Choices cannot be changed later.</p>
+                <div class="modal-content" style="background-color: white">
+                    <h4>Confirm submission?</h4>
+                    <p>Choices cannot be changed later.</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="modal-close waves-effect waves-red btn-flat">Return</a>
+                    <a id="btnSubmit" class="modal-close waves-effect waves-green btn-flat">Submit</a>
+                </div>
             </div>
-            <div class="modal-footer">
-                <a class="modal-close waves-effect waves-red btn-flat">Return</a>
-                <a id="btnSubmit" class="modal-close waves-effect waves-green btn-flat">Submit</a>
-            </div>
-        </div>
         </div>
 
-        
+
 
     </div>
     <div class="fixed-action-btn" style="bottom: 50px">
         <a href="#camera-modal" id="qrstart" class="btn-floating red btn-large modal-trigger"><i class="large material-icons">camera</i></a>
     </div>
     <div id="camera-modal" class="modal">
-           <div class="modal-header center">
-               <h5>Scan QR Code to Vote!</h5>
-           </div>
-            <div class="modal-content center" style="background-color: white">
-                <video id="preview" style="width: 100%"></video>
-            </div>
-            <div class="modal-footer">
-                <h5>Footer-text</h5>
-            </div>
+        <button class="close" data-dismiss="modal">&times;</button>
+
+        <div class="modal-header center">
+            <h5>Scan QR Code to Vote!</h5>
+        </div>
+        <div class="modal-content center" style="background-color: white">
+            <video id="preview" style="width: 100%"></video>
+        </div>
+        <div class="modal-footer">
+            <h5>Footer-text</h5>
+        </div>
     </div>
-    
+
     <main></main>
     <footer class="page-footer">
         <div class="footer-copyright">
             <div class="container">
-                © <a href="https://pictoreal.in/" target="_blank"> PICTOREAL </a>
-                2019
+                © <a href="https://pictoreal.in/" target="_blank"> PICTOREAL </a> 2019
                 <a href="https://www.facebook.com/pictoreal/" target="_blank">
                     <i class="fab fa-facebook-f mr-3 right"></i>
                 </a>
@@ -118,4 +121,6 @@
 
 
 
-</body></html>
+</body>
+
+</html>
