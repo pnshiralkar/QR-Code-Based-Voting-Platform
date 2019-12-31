@@ -68,7 +68,7 @@
                             $(".loading").hide();
                         }
                     },
-                    fail: function () {
+                    fail: function() {
                         $(".loading").hide();
                     }
                 })
@@ -87,7 +87,7 @@
                 var bool = false;
                 var code = document.getElementById("idManual").value;
 
-                if (code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) {
+                if ((code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) || (code.length === 4 && Number.isInteger(code[0]) && Number.isInteger(code[1]) && Number.isInteger(code[2]) && Number.isInteger(code[3]))) {
                     $(".loading").show();
                     $.ajax({
                         url: "/login",
@@ -106,7 +106,7 @@
                                 // stop loading (play vdo again)
                             }
                         },
-                        fail: function () {
+                        fail: function() {
                             $(".loading").hide();
                         }
 

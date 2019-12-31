@@ -1,14 +1,14 @@
 function setCookie(cname, cvalue, exsecs) {
     var d = new Date();
     d.setTime(d.getTime() + (exsecs * 1000));
-    var expires = "expires="+d.toUTCString();
+    var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -20,18 +20,18 @@ function getCookie(cname) {
     return "";
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     $("#qrstart").click(() => {
         startCam();
     });
 
-    $("#btnSubmit").click(function () {
+    $("#btnSubmit").click(function() {
         setCookie("check", "pictoreal", 500);
-        for(i in arrPhoto){
-            setCookie("p"+i, arrPhoto[i], 500);
+        for (i in arrPhoto) {
+            setCookie("p" + i, arrPhoto[i], 500);
         }
-        for(i in arrSketch){
-            setCookie("s"+i, arrSketch[i], 500);
+        for (i in arrSketch) {
+            setCookie("s" + i, arrSketch[i], 500);
         }
         window.location = "../submit";
     })
@@ -49,24 +49,24 @@ function startCam() {
         video: document.getElementById('preview'),
         mirror: false
     })
-    Instascan.Camera.getCameras().then(function (cameras) {
+    Instascan.Camera.getCameras().then(function(cameras) {
         if (cameras.length > 1) {
             scanner.start(cameras[1]);
         } else {
             console.error('No cameras found.');
         }
-    }).catch(function (e) {
+    }).catch(function(e) {
         console.error(e);
     });
 
-    scanner.addListener('scan', function (content) {
-        let chipadd=true;
+    scanner.addListener('scan', function(content) {
+        let chipadd = true;
         if (content[0] == 'p' || content[0] == 'P') {
             if (arrPhoto.length < 3) {
                 if (arrPhoto.indexOf(content) > -1) {
                     chipadd = false;
                     alert("You can vote for a particular Photo only once.");
-                }else {
+                } else {
                     arrPhoto.push(content);
                     console.log("added " + content);
                     var ps = 'photo';
@@ -82,7 +82,7 @@ function startCam() {
                 if (arrSketch.indexOf(content) > -1) {
                     chipadd = false;
                     alert("You can vote for a particular Sketch only once.");
-                }else {
+                } else {
                     arrSketch.push(content);
                     console.log("added " + content);
                     var ps = 'drawing';
@@ -117,7 +117,7 @@ function startCam() {
                 "\n" +
                 "            </div>")
             scanner.stop();
-            
+
             $(".close").click();
         }
     });
