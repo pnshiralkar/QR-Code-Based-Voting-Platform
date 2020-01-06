@@ -16,16 +16,12 @@ def adminlogin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         try:
-            User.objects.get(username=username)
-            if password == "admin":
-                user = authenticate(username=username, password="admin")
-                auth.login(request, user)
-                return render(request, 'voting/signup.html')
-            else:
-                return render(request, 'voting/adminlogin.html', {'error1': "Invalid password"})
+            User.objects.get(username=username,password=password)
+            user = authenticate(username=username, password=password)
+            auth.login(request, user)
+            return render(request, 'voting/signup.html')
         except:
             return render(request, 'voting/adminlogin.html', {'error2': "Invalid admin"})
-        return render(request, 'voting/adminlogin.html')
     return render(request, 'voting/adminlogin.html')
 
 
