@@ -16,7 +16,6 @@ def adminlogin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         try:
-            User.objects.get(username=username,password=password)
             user = authenticate(username=username, password=password)
             auth.login(request, user)
             return render(request, 'voting/signup.html')
@@ -49,7 +48,7 @@ def login(request):
                 {"success": False, "status": "Invalid ID ; Make sure you are registered by Pictoreal volunteer."})
         user = authenticate(username=username, password="picsoreel2k19")
         if user:
-            if user.is_active or True:
+            if user.is_active:
                 auth.login(request, user)
                 return JsonResponse({"success": True})
             return JsonResponse({"success": False, "status": "Duplicate user!"})

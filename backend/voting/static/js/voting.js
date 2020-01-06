@@ -20,12 +20,15 @@ function getCookie(cname) {
     return "";
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
+
+    $('.modal').modal();
+
     $("#qrstart").click(() => {
         startCam();
     });
 
-    $("#btnSubmit").click(function() {
+    $("#btnSubmit").click(function () {
         setCookie("check", "pictoreal", 500);
         for (i in arrPhoto) {
             setCookie("p" + i, arrPhoto[i], 500);
@@ -38,7 +41,6 @@ $(document).ready(function() {
 });
 
 
-
 var arrSketch = [];
 var arrPhoto = [];
 
@@ -49,17 +51,19 @@ function startCam() {
         video: document.getElementById('preview'),
         mirror: false
     })
-    Instascan.Camera.getCameras().then(function(cameras) {
+    Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 1) {
             scanner.start(cameras[1]);
+        } else if (cameras.length > 0) {
+            scanner.start(cameras[0]);
         } else {
             console.error('No cameras found.');
         }
-    }).catch(function(e) {
+    }).catch(function (e) {
         console.error(e);
     });
 
-    scanner.addListener('scan', function(content) {
+    scanner.addListener('scan', function (content) {
         let chipadd = true;
         if (content[0] == 'p' || content[0] == 'P') {
             if (arrPhoto.length < 3) {
@@ -117,8 +121,8 @@ function startCam() {
                 "\n" +
                 "            </div>")
             scanner.stop();
+            $(".modal").modal('close')
 
-            $(".close").click();
         }
     });
 
