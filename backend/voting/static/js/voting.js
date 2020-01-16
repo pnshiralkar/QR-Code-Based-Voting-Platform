@@ -42,6 +42,13 @@ $(document).ready(function() {
     $(".modal-overlay").click(function() {
         scanner.stop();
     })
+
+    $(".modal").openModal({
+        complete: function() {
+            scanner.stop();
+            console.log("ab to ho jana chaiye");
+        }
+    });
 });
 
 
