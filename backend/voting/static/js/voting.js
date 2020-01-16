@@ -39,7 +39,7 @@ $(document).ready(function() {
         window.location = "../submit";
     })
 
-    $(".modal-close").click(function() {
+    $(".modal-overlay").click(function() {
         scanner.stop();
     })
 });
