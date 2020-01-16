@@ -20,7 +20,7 @@ function getCookie(cname) {
     return "";
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
 
     $('.modal').modal();
 
@@ -28,7 +28,7 @@ $(document).ready(function () {
         startCam();
     });
 
-    $("#btnSubmit").click(function () {
+    $("#btnSubmit").click(function() {
         setCookie("check", "pictoreal", 500);
         for (i in arrPhoto) {
             setCookie("p" + i, arrPhoto[i], 500);
@@ -51,7 +51,7 @@ function startCam() {
         video: document.getElementById('preview'),
         mirror: false
     })
-    Instascan.Camera.getCameras().then(function (cameras) {
+    Instascan.Camera.getCameras().then(function(cameras) {
         if (cameras.length > 1) {
             scanner.start(cameras[1]);
         } else if (cameras.length > 0) {
@@ -59,11 +59,11 @@ function startCam() {
         } else {
             console.error('No cameras found.');
         }
-    }).catch(function (e) {
+    }).catch(function(e) {
         console.error(e);
     });
 
-    scanner.addListener('scan', function (content) {
+    scanner.addListener('scan', function(content) {
         let chipadd = true;
         if (content[0] == 'p' || content[0] == 'P') {
             if (arrPhoto.length < 3) {
@@ -77,6 +77,7 @@ function startCam() {
                     $("#numP").text(arrPhoto.length);
                 }
             } else {
+                chipadd = false;
                 alert("You can vote only for 3 Photo !!");
             }
             console.log(arrPhoto);
