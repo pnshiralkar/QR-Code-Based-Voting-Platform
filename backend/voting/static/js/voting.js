@@ -22,7 +22,8 @@ function getCookie(cname) {
 
 $(document).ready(function() {
 
-    $('.modal').modal();
+    $('.modal').modal({ complete: function() { scanner.stop();
+            console.log("vneo"); } });
 
     $("#qrstart").click(() => {
         startCam();
