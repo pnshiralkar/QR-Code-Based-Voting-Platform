@@ -38,6 +38,10 @@ $(document).ready(function() {
         }
         window.location = "../submit";
     })
+
+    $(".modal-close").click(function() {
+        scanner.stop();
+    })
 });
 
 
@@ -132,6 +136,8 @@ function startCam() {
     });
 
 }
+
+
 
 
 function voteDelete(x) {
