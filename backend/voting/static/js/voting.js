@@ -22,8 +22,7 @@ function getCookie(cname) {
 
 $(document).ready(function() {
 
-    $('.modal').modal({ complete: function() { scanner.stop();
-            console.log("vneo"); } });
+    $('.modal').modal();
 
     $("#qrstart").click(() => {
         startCam();
@@ -39,17 +38,6 @@ $(document).ready(function() {
         }
         window.location = "../submit";
     })
-
-    $(".modal-overlay").click(function() {
-        scanner.stop();
-    })
-
-    $(".modal").openModal({
-        complete: function() {
-            scanner.stop();
-            console.log("ab to ho jana chaiye");
-        }
-    });
 });
 
 

@@ -21,7 +21,7 @@
     <script src="../static/js/materialize.min.js"></script>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <!--Import jQuery before materialize.js-->
-<!--    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>-->
+    <!--    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>-->
 
 
     <script src="../static/js/voting.js"></script>
@@ -114,7 +114,12 @@
 
     <script>
         $(document).ready(function() {
-            $('.modal').modal();
+            $('.modal').modal({
+                complete: function() {
+                    scanner.stop();
+                    console.log('11');
+                }
+            });
         })
     </script>
 
