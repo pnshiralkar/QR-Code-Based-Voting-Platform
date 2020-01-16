@@ -63,67 +63,71 @@ function startCam() {
         console.error(e);
     });
 
+    var lastQr = "";
     scanner.addListener('scan', function(content) {
-        let chipadd = true;
-        if (content[0] == 'p' || content[0] == 'P') {
-            if (arrPhoto.length < 3) {
-                if (arrPhoto.indexOf(content) > -1) {
-                    chipadd = false;
-                    alert("You can vote for a particular Photo only once.");
+        if (content != lastQr) {
+            lastQr = content;
+            let chipadd = true;
+            if (content[0] == 'p' || content[0] == 'P') {
+                if (arrPhoto.length < 3) {
+                    if (arrPhoto.indexOf(content) > -1) {
+                        chipadd = false;
+                        alert("You can vote for a particular Photo only once.");
+                    } else {
+                        arrPhoto.push(content);
+                        console.log("added " + content);
+                        var ps = 'photo';
+                        $("#numP").text(arrPhoto.length);
+                    }
                 } else {
-                    arrPhoto.push(content);
-                    console.log("added " + content);
-                    var ps = 'photo';
-                    $("#numP").text(arrPhoto.length);
-                }
-            } else {
-                chipadd = false;
-                alert("You can vote only for 3 Photo !!");
-            }
-            console.log(arrPhoto);
-        }
-        if (content[0] == 's' || content[0] == 'S') {
-            if (arrSketch.length < 3) {
-                if (arrSketch.indexOf(content) > -1) {
                     chipadd = false;
-                    alert("You can vote for a particular Sketch only once.");
-                } else {
-                    arrSketch.push(content);
-                    console.log("added " + content);
-                    var ps = 'drawing';
-                    $("#numS").text(arrSketch.length);
+                    alert("You can vote only for 3 Photo !!");
                 }
-            } else {
-                chipadd = false;
-                alert("You can vote only for 3 Sketch !!");
+                console.log(arrPhoto);
             }
-            console.log(arrSketch);
-        }
+            if (content[0] == 's' || content[0] == 'S') {
+                if (arrSketch.length < 3) {
+                    if (arrSketch.indexOf(content) > -1) {
+                        chipadd = false;
+                        setTimeout(() => alert("You can vote for a particular Sketch only once."), 1);
+                    } else {
+                        arrSketch.push(content);
+                        console.log("added " + content);
+                        var ps = 'drawing';
+                        $("#numS").text(arrSketch.length);
+                    }
+                } else {
+                    chipadd = false;
+                    alert("You can vote only for 3 Sketch !!");
+                }
+                console.log(arrSketch);
+            }
 
-        if ((content[0] == 's' || content[0] == 'S' || content[0] == 'p' || content[0] == 'P') && chipadd) {
-            $("#chips").append("<div class=\"chip " + ps + "\" data='" + content + "'>\n" +
-                "                <div class=\"row\">\n" +
-                "\n" +
-                "                    <div class=\"row\">\n" +
-                "                        <div class=\"input-field col s10 \">\n" +
-                "                            <i class=\"material-icons prefix  \">check</i>\n" +
-                "                            <input id=\"icon_prefix\" type=\"text\" disabled>\n" +
-                "                            <label for=\"icon_prefix\">" + content + "</label>\n" +
-                "\n" +
-                "                        </div>\n" +
-                "                        <div class=\"container\">\n" +
-                "                            <i class=\"close material-icons center-align\" onclick=\"voteDelete('" + content + "')\">close</i>\n" +
-                "                        </div>\n" +
-                "\n" +
-                "                    </div>\n" +
-                "\n" +
-                "\n" +
-                "                </div>\n" +
-                "\n" +
-                "            </div>")
-            scanner.stop();
-            $(".modal").modal('close')
+            if ((content[0] == 's' || content[0] == 'S' || content[0] == 'p' || content[0] == 'P') && chipadd) {
+                $("#chips").append("<div class=\"chip " + ps + "\" data='" + content + "'>\n" +
+                    "                <div class=\"row\">\n" +
+                    "\n" +
+                    "                    <div class=\"row\">\n" +
+                    "                        <div class=\"input-field col s10 \">\n" +
+                    "                            <i class=\"material-icons prefix  \">check</i>\n" +
+                    "                            <input id=\"icon_prefix\" type=\"text\" disabled>\n" +
+                    "                            <label for=\"icon_prefix\">" + content + "</label>\n" +
+                    "\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"container\">\n" +
+                    "                            <i class=\"close material-icons center-align\" onclick=\"voteDelete('" + content + "')\">close</i>\n" +
+                    "                        </div>\n" +
+                    "\n" +
+                    "                    </div>\n" +
+                    "\n" +
+                    "\n" +
+                    "                </div>\n" +
+                    "\n" +
+                    "            </div>")
+                scanner.stop();
+                $(".modal").modal('close')
 
+            }
         }
     });
 
