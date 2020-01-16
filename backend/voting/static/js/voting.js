@@ -22,7 +22,13 @@ function getCookie(cname) {
 
 $(document).ready(function() {
 
-    $('.modal').modal();
+    $('.modal').modal({
+        dismissible: true,
+        onCloseEnd: function() {
+            scanner.stop();
+            console.log('11');
+        }
+    });
 
     $("#qrstart").click(() => {
         startCam();
