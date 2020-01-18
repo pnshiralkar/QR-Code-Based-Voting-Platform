@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <style>
+        .imgdiv {
+            width: 22vw;
+            display: inline-block;
+            padding: 1vw 0;
+            text-align: center
+        }
+
+        .img {
+            width: 100%
+        }
+
+        h1{
+            margin: 2px;
+        }
+    </style>
+    <script>
+        // Keep photos in folder named "qrCodes"
+        // Config
+        var num_p = 93; // Number of photos
+        var num_s = 0;  // Number of sketches/paintings
+        var num_zeroes = 4; // Length of number (P0011 = 4)
+
+
+
+
+
+        function pad(num, size) {
+            var s = num + "";
+            while (s.length < size) s = "0" + s;
+            return s;
+        }
+        $(document).ready(function () {
+            for (var i = 1; i <= num_p; i++) {
+                $("body").append('<div class="imgdiv"><img src="qrCodes/P' + pad(i, num_zeroes) + '.png" alt="" class="img"><h1>P' + pad(i, num_zeroes) + '</h1></div>')
+            }
+
+
+            for (var i = 1; i <= num_s; i++) {
+                $("body").append('<div class="imgdiv"><img src="qrCodes/S' + pad(i, num_zeroes) + '.png" alt="" class="img"><h1>S' + pad(i, num_zeroes) + '</h1></div>')
+            }
+        });
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
