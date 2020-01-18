@@ -44,6 +44,8 @@ $(document).ready(function() {
         }
         window.location = "../submit";
     })
+    
+    $('.collapsible').collapsible();
 });
 
 
