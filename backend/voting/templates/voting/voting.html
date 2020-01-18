@@ -78,7 +78,7 @@
     <div class="fixed-action-btn" style="bottom: 50px">
         <a href="#camera-modal" id="qrstart" class="btn-floating red btn-large modal-trigger"><i class="large material-icons">camera</i></a>
     </div>
-    <div id="camera-modal" class="modal">
+    <!--<div id="camera-modal" class="modal">
 
         <div class="modal-header center">
             <h5>Scan QR Code to Vote!</h5>
@@ -89,6 +89,29 @@
         <div class="modal-footer">
             <h5>Footer-text</h5>
         </div>
+    </div>-->
+    <div id="camera-modal" class="modal" style="background-color:rgba(0,0,0,0)">
+            <ul class="collapsible" style="background-color: white">
+                <li class="active">
+                    <div class="collapsible-header active"><h5>Scan QR to vote!</h5></div>
+                    <div class="collapsible-body">
+
+                        <video id="preview" style="width: 100%"></video>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="collapsible-header">Enter QR code here</div>
+                    <div class="collapsible-body">
+                        <form>
+                            <div class="form-group text-white">
+                                <input type="text" placeholder="QR Code" class="form-control" id="QRid">
+                            </div>
+                            <button class="btn btn-primary" id="QRsubmit">Vote</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
     </div>
 
     <main></main>
