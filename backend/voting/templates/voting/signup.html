@@ -32,7 +32,7 @@
 
         function barcode(code) {
             var bool = false;
-            if ((code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) || (code.length === 4 && isNaN(code)  )) {
+            if ((code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) || (code.length === 4 && !isNaN(code)  )) {
                 console.log(code);
                 // start loading a(if possible pause video)
                 $(".loading").show();
@@ -78,7 +78,7 @@
                 var bool = false;
                 var code = document.getElementById("idManual").value;
 
-                if ((code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) || (code.length === 4 && isNaN(code)  )) {
+                if ((code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) || (code.length === 4 && !isNaN(code)  )) {
                     $(".loading").show();
                     $.ajax({
                         url: "/signup",
