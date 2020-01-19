@@ -98,7 +98,8 @@ def submit(request):
             p3 = request.COOKIES['p2']
         except:
             pass
-        vote = Vote(IDNumber=request.user.username, drawing1=s1, drawing2=s2, drawing3=s3, photo1=p1, photo2=p2, photo3=p3)
+        vote = Vote(IDNumber=request.user.username, drawing1=s1, drawing2=s2, drawing3=s3, photo1=p1, photo2=p2,
+                    photo3=p3)
         vote.save()
         User.objects.filter(username=request.user.username).update(is_active=False)
         auth.logout(request)
@@ -116,3 +117,54 @@ def thanks(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
+
+
+def count(request):
+    listp = []
+    listd = []
+    for i in range(0, 30):
+        try:
+            vote = Vote.objects.get(pk=i)
+            drawing1 = int(vote.drawing1[1:])
+            drawing2 = int(vote.drawing2[1:])
+            drawing3 = int(vote.drawing3[1:])
+            photo1 = int(vote.photo1[1:])
+            photo2 = int(vote.photo2[1:])
+            photo3 = int(vote.photo3[1:])
+
+            listp.append(photo1)
+            listp.append(photo2)
+            listp.append(photo3)
+            listd.append(drawing1)
+            listd.append(drawing2)
+            listd.append(drawing3)
+        except:
+            continue
+    print()
+    print("Photograph array:- ")
+    try:
+        freqp = {}
+        for item in listp:
+            if item in freqp:
+                freqp[item] += 1
+            else:
+                freqp[item] = 1
+    except:
+        pass
+
+    print()
+    print("Sketch array:- ")
+    try:
+        freqd = {}
+        for item in listd:
+            if item in freqd:
+                freqd[item] += 1
+            else:
+                freqd[item] = 1
+    except:
+        pass
+
+    sortedp = dict(sorted(freqp.items(), key=operator.itemgetter(1), reverse=True))
+    sortedd = dict(sorted(freqd.items(), key=operator.itemgetter(1), reverse=True))
+
+    return render(request, 'voting/count.html', {'sortedd': sortedd, 'sortedp': sortedp})

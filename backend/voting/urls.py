@@ -10,4 +10,5 @@ urlpatterns = [
     path('vote/', views.voting, name='voting'),
     path('submit/', views.submit, name='submit'),
     path('thanks/', views.thanks, name='thanks'),
+    path('count',views.count,name='count'),
 ]
