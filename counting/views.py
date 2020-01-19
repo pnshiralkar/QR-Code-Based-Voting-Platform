@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect
-
+import operator
 from .models import Vote
 
 
@@ -132,10 +132,7 @@ def count(request):
             photo1 = int(vote.photo1[1:])
             photo2 = int(vote.photo2[1:])
             photo3 = int(vote.photo3[1:])
-            print("Drawings:- ", vote.pk)
-            print(drawing1, drawing2, drawing3)
-            print("Photos:- ", vote.pk)
-            print(photo1, photo2, photo3)
+
             listp.append(photo1)
             listp.append(photo2)
             listp.append(photo3)
@@ -144,31 +141,36 @@ def count(request):
             listd.append(drawing3)
         except:
             continue
+    print()
     print("Photograph array:- ")
     try:
-        print(listp)
         freqp = {}
         for item in listp:
             if item in freqp:
                 freqp[item] += 1
             else:
                 freqp[item] = 1
-        for key, value in freqp.items():
-            print("Photo 0%d : %d Votes " % (key, value))
     except:
         pass
 
+    print()
     print("Sketch array:- ")
     try:
-        print(listd)
         freqd = {}
         for item in listd:
             if item in freqd:
                 freqd[item] += 1
             else:
                 freqd[item] = 1
-        for key, value in freqd.items():
-            print("Photo 0%d : %d Votes " % (key, value))
     except:
         pass
-    return redirect('home')
+
+    sortedp = dict(sorted(freqp.items(), key=operator.itemgetter(1), reverse=True))
+    sortedd = dict(sorted(freqd.items(), key=operator.itemgetter(1), reverse=True))
+
+    return render(request, 'voting/count.html', {'sortedd': sortedd, 'sortedp': sortedp})
+    
+    
+    
+    
+    
