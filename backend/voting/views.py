@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect
-
+import operator
 from .models import Vote
 
 
@@ -142,8 +142,8 @@ def count(request):
             continue
     print()
     print("Photograph array:- ")
+    freqp = {}
     try:
-        freqp = {}
         for item in listp:
             if item in freqp:
                 freqp[item] += 1
@@ -154,8 +154,8 @@ def count(request):
 
     print()
     print("Sketch array:- ")
+    freqd = {}
     try:
-        freqd = {}
         for item in listd:
             if item in freqd:
                 freqd[item] += 1
