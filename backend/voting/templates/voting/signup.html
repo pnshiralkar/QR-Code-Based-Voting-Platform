@@ -78,7 +78,7 @@
                 var bool = false;
                 var code = document.getElementById("idManual").value;
 
-                if (code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) {
+                if ((code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) || (code.length === 4 && isNaN(code)  )) {
                     $(".loading").show();
                     $.ajax({
                         url: "/signup",
