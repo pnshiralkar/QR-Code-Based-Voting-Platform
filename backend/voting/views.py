@@ -141,8 +141,6 @@ def count(request):
                 listd.append(drawing3)
             except:
                 continue
-        print()
-        print("Photograph array:- ")
         freqp = {}
         try:
             for item in listp:
@@ -153,8 +151,6 @@ def count(request):
         except:
             pass
 
-        print()
-        print("Sketch array:- ")
         freqd = {}
         try:
             for item in listd:
