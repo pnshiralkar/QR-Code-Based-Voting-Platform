@@ -20,11 +20,20 @@ function getCookie(cname) {
     return "";
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
+
+    $("#flipCam").click(function () {
+        if(camNo === 0)
+            camNo = 1;
+        else
+            camNo = 0;
+        scanner.stop();
+        startCam();
+    })
 
     $('.modal').modal({
         dismissible: true,
-        onCloseEnd: function() {
+        onCloseEnd: function () {
             scanner.stop();
             console.log('11');
         }
@@ -38,7 +47,7 @@ $(document).ready(function() {
         startCam();
     });
 
-    $("#btnSubmit").click(function() {
+    $("#btnSubmit").click(function () {
         setCookie("check", "pictoreal", 500);
         for (i in arrPhoto) {
             setCookie("p" + i, arrPhoto[i], 500);
@@ -112,7 +121,7 @@ $(document).ready(function() {
             $(".modal").modal('close')
         }
 
-        })
+    })
 });
 
 
@@ -120,26 +129,31 @@ var arrSketch = [];
 var arrPhoto = [];
 
 var scanner;
+var camNo = -1;
 
 function startCam() {
     scanner = new Instascan.Scanner({
         video: document.getElementById('preview'),
         mirror: false
     })
-    Instascan.Camera.getCameras().then(function(cameras) {
-        if (cameras.length > 1) {
-            scanner.start(cameras[1]);
-        } else if (cameras.length > 0) {
-            scanner.start(cameras[0]);
-        } else {
-            console.error('No cameras found.');
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (camNo === -1) {
+            if (cameras.length > 1) {
+                camNo = 1;
+            } else if (cameras.length > 0) {
+                camNo = 0;
+            } else {
+                console.error('No cameras found.');
+            }
+            if (camNo !== -1)
+                scanner.start(cameras[camNo]);
         }
-    }).catch(function(e) {
+    }).catch(function (e) {
         console.error(e);
     });
 
     var lastQr = "";
-    scanner.addListener('scan', function(content) {
+    scanner.addListener('scan', function (content) {
         if (content != lastQr) {
             lastQr = content;
             let chipadd = true;
@@ -207,8 +221,6 @@ function startCam() {
     });
 
 }
-
-
 
 
 function voteDelete(x) {
