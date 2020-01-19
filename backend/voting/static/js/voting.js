@@ -27,8 +27,7 @@ $(document).ready(function () {
             camNo = 1;
         else
             camNo = 0;
-        scanner.stop();
-        startCam();
+        scanner.stop().then(()=>{startCam();});
     })
 
     $('.modal').modal({
