@@ -123,22 +123,40 @@ def count(request):
     if request.user.is_staff or request.user.is_superuser:
         listp = []
         listd = []
-        for i in range(0, 500):
+        allVotes = Vote.objects.all()
+        for i in allVotes:
             try:
-                vote = Vote.objects.get(pk=i)
-                drawing1 = int(vote.drawing1[1:])
-                drawing2 = int(vote.drawing2[1:])
-                drawing3 = int(vote.drawing3[1:])
-                photo1 = int(vote.photo1[1:])
-                photo2 = int(vote.photo2[1:])
-                photo3 = int(vote.photo3[1:])
-
-                listp.append(photo1)
-                listp.append(photo2)
-                listp.append(photo3)
-                listd.append(drawing1)
-                listd.append(drawing2)
-                listd.append(drawing3)
+                vote = i
+                try:
+                    drawing1 = int(vote.drawing1[1:])
+                    listd.append(drawing1)
+                except:
+                    pass
+                try:
+                    drawing2 = int(vote.drawing2[1:])
+                    listd.append(drawing2)
+                except:
+                    pass
+                try:
+                    drawing3 = int(vote.drawing3[1:])
+                    listd.append(drawing3)
+                except:
+                    pass
+                try:
+                    photo1 = int(vote.photo1[1:])
+                    listp.append(photo1)
+                except:
+                    pass
+                try:
+                    photo2 = int(vote.photo2[1:])
+                    listp.append(photo2)
+                except:
+                    pass
+                try:
+                    photo3 = int(vote.photo3[1:])
+                    listp.append(photo3)
+                except:
+                    pass
             except:
                 continue
         freqp = {}
