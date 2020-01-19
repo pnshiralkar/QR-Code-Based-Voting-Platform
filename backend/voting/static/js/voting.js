@@ -23,7 +23,10 @@ function getCookie(cname) {
 $(document).ready(function () {
 
     $("#flipCam").click(function () {
-        camNo = (camNo+1)%totCam;
+        if (camNo === 0)
+            camNo = 1;
+        else
+            camNo = 0;
         scanner.stop().then(()=>{startCam();});
     })
 
@@ -126,7 +129,6 @@ var arrPhoto = [];
 
 var scanner;
 var camNo = -1;
-var totCam;
 
 function startCam() {
     scanner = new Instascan.Scanner({
@@ -135,7 +137,6 @@ function startCam() {
     })
     Instascan.Camera.getCameras().then(function (cameras) {
         if (camNo === -1) {
-            totCam = cameras.length;
             if (cameras.length > 1) {
                 camNo = 1;
             } else if (cameras.length > 0) {
