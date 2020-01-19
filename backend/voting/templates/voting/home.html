@@ -46,7 +46,7 @@
         function barcode(code) {
             var bool = false;
 
-            if ((code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) || (code.length === 4 && Number.isInteger(code)  )) {
+            if ((code[0].match(/[a-z]/i) && code[2].match(/[a-z]/i) && code.length === 11) || (code.length === 4 && isNaN(code)  )) {
                 console.log(code);
                 // start loading a(if possible pause video)
                 $(".loading").show();
