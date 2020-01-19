@@ -23,7 +23,7 @@ function getCookie(cname) {
 $(document).ready(function () {
 
     $("#flipCam").click(function () {
-        if(camNo === 0)
+        if (camNo === 0)
             camNo = 1;
         else
             camNo = 0;
@@ -145,9 +145,9 @@ function startCam() {
             } else {
                 console.error('No cameras found.');
             }
-            if (camNo !== -1)
-                scanner.start(cameras[camNo]);
         }
+        if (camNo !== -1)
+            scanner.start(cameras[camNo]);
     }).catch(function (e) {
         console.error(e);
     });
