@@ -87,7 +87,18 @@
             <video id="preview" style="width: 100%"></video>
         </div>
         <div class="modal-footer">
-            <h5>Footer-text</h5>
+            <h5 class="text-white"><a href="#collapse2" id="manual_show" data-toggle="collapse">Manually enter Photo/Sketch ID</a></h5>
+            <div id="collapse2" class="collapse">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group text-white">
+                            <label for="username">Photo/Sketch ID</label>
+                            <input type="text" placeholder="P****/S****" class="form-control" id="idManual">
+                        </div>
+                    </form>
+                    <button class="btn btn-primary" id="Manual">Vote</button>
+                </div>
+            </div>
         </div>
     </div>
 
