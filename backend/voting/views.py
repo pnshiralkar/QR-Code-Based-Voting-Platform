@@ -123,7 +123,7 @@ def count(request):
     if request.user.is_staff or request.user.is_superuser:
         listp = []
         listd = []
-        for i in range(0, 30):
+        for i in range(0, 500):
             try:
                 vote = Vote.objects.get(pk=i)
                 drawing1 = int(vote.drawing1[1:])
