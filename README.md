@@ -1,4 +1,4 @@
-# QR-code-based-voting-platform
+# QR-Code-Based-Boting-Platform
 
 This platform was developed for voting photos/sketches using QR Codes in exhibition - Picsoreel (by college student group [Pictoreal](http://www.pictoreal.in)). Also, the platform used barcode based ID Cards of students to confirm identity.
 
